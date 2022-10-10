@@ -67,7 +67,7 @@ import {RatingModule} from 'primeng/rating';
 
 
 
-;
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 import {InputTextModule} from 'primeng/inputtext';
 
@@ -118,7 +118,7 @@ import {RippleModule} from 'primeng/ripple';
     OverlayPanelModule,
     ChartModule,PanelModule,
     DataViewModule,RatingModule,
-    InputTextModule,RippleModule
+    InputTextModule,RippleModule,ProgressSpinnerModule
     
     
     

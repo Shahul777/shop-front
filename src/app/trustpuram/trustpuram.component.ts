@@ -386,6 +386,7 @@ this.isViewAccountDetail=true
 
 }
 deleteAccount(id: any, time: any){
+  this.showProgress=true
    this.service.deleteTpmAccountsById(id).subscribe((event: any)=>{
         // this.ngOnInit()
         
@@ -397,6 +398,7 @@ this.service.deleteTpmLabourById(labour.id).subscribe((event: any)=>{
 },
 error=>{
   console.log(error)
+  this.showProgress=false
 })
 
 }
@@ -404,10 +406,11 @@ error=>{
       },
       error=>{
         console.log(error);
+        this.showProgress=false
       })
 }
 deleteAllEntry(){
-
+  this.showProgress=true
   this.selectedAccounts.forEach((account: any)=>{
     if(account===null || account===undefined){
      
@@ -426,6 +429,7 @@ this.service.deleteTpmLabourById(id2).subscribe((event: any)=>{
 this.ngOnInit()
 },
 error=>{
+  this.showProgress=false
   console.log(error)
 })
           }
@@ -449,6 +453,7 @@ error=>{
        
       },
       error=>{
+        this.showProgress=false
         console.log(error);
       })
     }
@@ -701,7 +706,7 @@ sortOrder: any;
 
 sortField: any;
 sortKey: any
-
+showProgress: boolean =false;
 
 onSubmit() { 
   this.submitted = true;
@@ -718,7 +723,7 @@ this.mainDetail=true
 
 
   ngOnInit(): void {
-
+    this.showProgress=true
     if(this.adminAccess){
       this.loginDetail=true
       this.mainDetail=false
@@ -855,7 +860,10 @@ this.currentBillTpm=val12
   ];
   this.service.getTpmLabours().subscribe((labour: any)=>{
 this.labours=labour
+if(!this.labours.length){
 
+  this.showProgress=false
+}
 
 this.labours.forEach((customer: any) => {
   customer.Date = new Date(customer.Date)
@@ -911,7 +919,11 @@ this.sortArrayLabour()
     this.service.getTpmAccounts().subscribe((account: any)=>{
    
       this.customers = account;
-   
+      if(!this.customers.length){
+
+        this.showProgress=false
+    
+       }
       this.loading = false;
 // this.customers.reverse()
        this.customers.forEach((customer: any) => {
@@ -978,7 +990,7 @@ else{
 this.tonerYesterday=toners
     this.sheetYesterday= sheet
     this.paperPresentYesterday=val8
-
+    this.showProgress=false
   }
 }
 
@@ -1295,6 +1307,11 @@ paperCameDate: any;
 tonerCameDate: any;
 totalItemCameDetail: any;
 showAllStatics(){
+  
+
+    this.showProgress=true
+
+ 
   this.paperCameDate= "";
   this.tonerCameDate ="";
   this.totalItemCameDetail= "";
@@ -1627,7 +1644,7 @@ this.wholePaperCount+=account.PaperSoldToday
   
   this.updateChartOptions();
 
-
+  this.showProgress=false
     
     this.showAllStaticDetail=true
 }
@@ -1780,7 +1797,8 @@ tonerCame(event : any){
 }
 kdmAccountHolidayDetail : kdmAccounts = <kdmAccounts>{};
 saveAccounts(){
-
+this.isAddAccounts=false
+this.showProgress=true
 
 
 

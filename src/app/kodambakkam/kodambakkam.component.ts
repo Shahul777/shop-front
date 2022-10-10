@@ -386,6 +386,7 @@ this.isViewAccountDetail=true
 
 }
 deleteAccount(id: any, time: any){
+  this.showProgress=true
    this.service.deleteKdmAccountsById(id).subscribe((event: any)=>{
         // this.ngOnInit()
         
@@ -397,6 +398,7 @@ this.service.deleteKdmLabourById(labour.id).subscribe((event: any)=>{
 },
 error=>{
   console.log(error)
+  this.showProgress=false
 })
 
 }
@@ -404,10 +406,11 @@ error=>{
       },
       error=>{
         console.log(error);
+        this.showProgress=false
       })
 }
 deleteAllEntry(){
-
+  this.showProgress=true
   this.selectedAccounts.forEach((account: any)=>{
     if(account===null || account===undefined){
      
@@ -450,9 +453,12 @@ error=>{
       },
       error=>{
         console.log(error);
+        this.showProgress=false
       })
     }
   })
+
+  this.showProgress=false
   this.wholeDeleteShow=false
 }
 
@@ -474,6 +480,7 @@ paperCameDate: any;
 tonerCameDate: any;
 totalItemCameDetail: any;
 showAllStatics(){
+  this.showProgress=true
   this.paperCameDate=""
   this.tonerCameDate=""
   this.totalItemCameDetail=""
@@ -789,7 +796,7 @@ this.wholePaperCount+=account.PaperSoldToday
   
   this.updateChartOptions();
 
-
+  this.showProgress=false
     
     this.showAllStaticDetail=true
 }
@@ -1064,6 +1071,10 @@ this.mainDetail=true
   // alert(JSON.stringify(this.loginForm.value));
 }
   ngOnInit(): void {
+
+    this.showProgress=true
+
+
     if(this.adminAccess){
       this.loginDetail=true
       this.mainDetail=false
@@ -1213,7 +1224,10 @@ let val : number = + this.rentSheet.tajSalary
   ];
   this.service.getKdmLabours().subscribe((labour: any)=>{
 this.labours=labour
+if(!this.labours.length){
 
+  this.showProgress=false
+}
 
 this.labours.forEach((customer: any) => {
   customer.Date = new Date(customer.Date)
@@ -1265,11 +1279,18 @@ this.sortArrayLabour()
 
 
 
+  }
+  ,error=>{
+    this.showProgress=false
   })
     this.service.getKdmAccounts().subscribe((account: any)=>{
    
       this.customers = account;
-   
+   if(!this.customers.length){
+
+    this.showProgress=false
+
+   }
       this.loading = false;
 // this.customers.reverse()
        this.customers.forEach((customer: any) => {
@@ -1336,10 +1357,13 @@ else{
 this.tonerYesterday=toners
     this.sheetYesterday= sheet
     this.paperPresentYesterday=val8
-
+    this.showProgress=false
   }
 }
 
+},
+error=>{
+  this.showProgress=false
 })
 
 
@@ -1377,6 +1401,8 @@ sortArrayLabour(){
 }
 sortArray(){
  this.customers.sort((a: any,b: any)=>{
+
+
   return b.GetTime-a.GetTime
  })
  
@@ -1775,7 +1801,8 @@ else{
 }
 }
 saveAccounts(){
-
+  this.isAddAccounts=false
+this.showProgress=true
 
 
 
@@ -1884,13 +1911,13 @@ this.kdmAccountDetail.OldStayingCopies=this.kdmAccountHolidayDetail.OldStayingCo
         this.ngOnInit();
   
   }, error=>{
-  
+    this.showProgress=false
   console.log(error)
   })
   
   },error=>{
     console.log(error)
-  
+    this.showProgress=false
   })
   
   
@@ -2109,11 +2136,12 @@ this.service.addKdmLabours(this.kdmLabourDetail).subscribe((event: any)=>{
       this.ngOnInit();
 
 }, error=>{
-
+  this.showProgress=false
 console.log(error)
 })
 
 },error=>{
+  this.showProgress=false
   console.log(error)
 
 })
@@ -2121,10 +2149,12 @@ console.log(error)
 
   },
   error=>{
+    this.showProgress=false
     console.log(error)
   })
 },
 error=>{
+  this.showProgress=false
   console.log(error)
 })
 }
@@ -2264,6 +2294,8 @@ calenderSelected(){
 
 
 }
+
+showProgress = false
 calenderSelected2(){
   if(this.customers){
     console.log(this.date)

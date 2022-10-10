@@ -1,3 +1,7 @@
+<div class="loading-indicator" *ngIf="showProgress">
+    <p-progressSpinner ></p-progressSpinner>
+</div>
+
 <div  *ngIf="!loginDetail && mainDetail">
     <p-table #dt1 [value]="customers" dataKey="id"
     [rows]="8"
