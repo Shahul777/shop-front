@@ -50,7 +50,6 @@
             <th>
                 <div class="flex justify-content-center align-items-center">
                     Day
-                    <!-- <p-columnFilter type="text" field="country.name" display="menu"></p-columnFilter> -->
                 </div>
             </th>
             <th>
@@ -61,33 +60,16 @@
             </th>
             <th>
                 <div class="flex justify-content-center align-items-center">
-                    Black Machine 2
-                
+                    Day
                 </div>
             </th>
-            <th>
-                <div class="flex justify-content-center align-items-center">
-                    Colour Machine
-                
-                </div>
+   
+            <th  *ngIf="adminAccess" style="width: 3rem">
+                <p-tableHeaderCheckbox (click)="checkBoxx()"></p-tableHeaderCheckbox>
             </th>
-            <!-- <th>
-                <div class="flex justify-content-center align-items-center">
-                   Old Staying Copies
-                
-                </div>
-            </th> -->
-            <!-- <th>
-                <div class="flex justify-content-center align-items-center">
-                   Old Staying Money
-                
-                </div>
-            </th> -->
-            <!-- <th>
-                <div class="flex justify-content-center align-items-center">
-                   Today Staying Copies
-                </div>
-            </th> -->
+            <th  *ngIf="!adminAccess" style="width: 3rem">
+                Colour Copies
+            </th>
             <th>
                 <div class="flex justify-content-center align-items-center">
                    Paper Sold
@@ -95,13 +77,13 @@
             </th>
             <th>
                 <div class="flex justify-content-center align-items-center">
-                    Black Copies
-                
+                   Date
+                   <p-columnFilter type="date" field="Date" display="menu"></p-columnFilter>
                 </div>
             </th>
             <th>
                 <div class="flex justify-content-center align-items-center">
-                    Colour Copies
+                    Print Data
                     
                 </div>
             </th>
@@ -121,7 +103,7 @@
             </th> -->
             <th style="width: 8rem">
                 <div class="flex justify-content-center align-items-center">
-                   Actions
+                   Delete
                    
                 </div>
             </th>
@@ -143,31 +125,28 @@
                 <span class="image-text">{{customer.BlackMachineReading1}}</span>
             </td>
             <td>
-                <span class="image-text">{{customer.BlackMachineReading2}}</span>
+                {{customer.Day}}
             </td>
-            <td>
-                <span class="image-text">{{customer.ColourMachineReading1}}</span>
+     
+            <td *ngIf="adminAccess">
+                <!-- <p-tableCheckbox (click)="checkBoxx()" [value]="tableCheckBox"></p-tableCheckbox> -->
+                <p-tableHeaderCheckbox (click)="checkBoxx()"></p-tableHeaderCheckbox>
             </td>
-            <!-- <td>
-                <span class="image-text">{{customer.OldStayingCopies}}</span>
-            </td> -->
-            <!-- <td>
-                <span class="image-text">{{customer.OldStayingMoney}}</span>
-            </td> -->
-            <!-- <td>
-                {{customer.TodayStayingCopies }}
-            </td> -->
+            <td *ngIf="!adminAccess">
+
+                    {{customer.ColourCopies}}
+            </td>
+
             <td>
                 {{customer.PaperSoldToday }}
             </td>
+     
             <td>
-                <span class="image-text">{{customer.BlackCopies}}</span>
+                {{customer.Date | date: 'dd/MM/yyyy'}}
             </td>
-            <td>
-                <!-- <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" /> -->
-                <span class="image-text">{{customer.ColourCopies}}</span>
-            </td>
-          
+<td>
+            <button pButton pRipple (click)="editAccount2(customer.id)" type="button" icon="pi pi-print" class="p-button-rounded p-button-info"></button>
+        </td>
             <td>
                 {{customer.TotalIncome }}
             </td>
@@ -177,7 +156,6 @@
             </td> -->
             <td class="text-center">
                 <div style="display: grid; grid-template-columns: 1fr 1fr;">
-                    <button pButton pRipple (click)="editAccount2(customer.id)" type="button" icon="pi pi-print" class="p-button-rounded p-button-info"></button>
                     <button pButton pRipple (click)="deleteAccount(customer.id,customer.GetTime)" type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"></button>
                 </div>
               
@@ -1326,7 +1304,7 @@ BINDINGS &nbsp;- &nbsp; {{kdmAccountDetail.Bindings}}
 <div *ngIf="loginDetail && !mainDetail" class="login-class">
     <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
         <p-panel header="Admin">
-            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px ; display: grid; margin-left: 65%;">
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2">
                         Login:

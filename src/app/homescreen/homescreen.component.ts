@@ -40,12 +40,12 @@ this.adminTrustpuram =false
         {
             label: 'Kodambakkam',
             icon: 'pi pi-refresh', command: () => {
-              this.showkodambakkamFunc('admin');
+              this.showkodambakkamFunc('labour');
         }},
         {
             label: 'Trustpuram',
             icon: 'pi pi-times', command: () => {
-              this.showTrustpuramFunc('admin');
+              this.showTrustpuramFunc('labour');
         }},
         {
             label: 'Net-Calculation',
@@ -58,6 +58,17 @@ this.adminTrustpuram =false
             icon: 'pi pi-upload', command: () => {
               this.housespendsFunc();
         }},
+
+        {
+          label: 'Kodambakkam-Admin',
+          icon: 'pi pi-slack', command: () => {
+            this.showkodambakkamFunc('admin');
+      }},
+      {
+        label: 'Trustpuram-Admin',
+        icon: 'pi pi-paypal', command: () => {
+          this.showTrustpuramFunc('admin');
+    }},
     ];
 }
 adminfunc(event : any){
